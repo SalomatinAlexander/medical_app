@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:paddingHorizontal="16dp"
+    android:layout_marginBottom="40dp"
+    tools:context=".ui.doctor_pages.doc.DocFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+
+        <include
+            layout="@layout/health_card">
+
+        </include>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:backgroundTint="@color/grey_back"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/grey_back"
+            >
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="Опросы"
+            android:textSize="24sp"
+            android:textFontWeight="700"
+            >
+        </TextView>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/no_quiz_txt"
+            android:visibility="gone"
+            android:text="Нет доступных опросов"
+            >
+        </TextView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/quiz_recycler"
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/primary_btn_style"
+            android:text="Создать опрос"
+            android:id="@+id/create_quiz_btn"
+            android:textColor="@color/white"
+            >
+        </androidx.appcompat.widget.AppCompatButton>
+
+
+    </LinearLayout>
+
+
+
+
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp"
+    tools:context=".ui.patient_pages.patient.PatientFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:text="Ваш врач"
+        android:textSize="20sp"
+        android:textFontWeight="700">
+
+    </TextView>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:src="@drawable/doctor_icon"
+        >
+    </ImageView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Иванов Иван Иванович"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textFontWeight="700"
+        >
+    </TextView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:backgroundTint="@color/grey_back"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/grey_back"
+        >
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_marginBottom="16dp"
+        android:text="Опросы"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/quiz_patient_recycler">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:backgroundTint="@color/grey_back"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/grey_back"
+        >
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="Баллы за последний опрос:"
+        android:layout_marginBottom="16dp"
+        android:textSize="20sp"
+        android:textFontWeight="700"
+        >
+    </TextView>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="0"
+            android:id="@+id/pacient_points_txt"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="30sp">
+        </TextView>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:src="@drawable/chevron"
+            >
+
+        </ImageView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</LinearLayout>

@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:paddingRight="16dp"
+    android:paddingLeft="16dp"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:text="Пациент"
+        android:textSize="20sp"
+        android:textFontWeight="700">
+
+    </TextView>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:src="@drawable/person_card_icon"
+        >
+    </ImageView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Иванов Иван Иванович"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textFontWeight="700"
+        >
+    </TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="Диагонз: ..."
+        android:textFontWeight="700"
+        >
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:backgroundTint="@color/grey_back"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/grey_back"
+        >
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="Схема лечения:"
+        android:layout_marginBottom="16dp"
+        android:textSize="20sp"
+        android:textFontWeight="700"
+        >
+    </TextView>
+
+
+
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:src="@drawable/morning"
+        android:layout_marginBottom="24dp"
+        >
+    </ImageView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@color/primary"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="Препарат">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@color/blue"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="Дозировка:">
+
+        </TextView>
+
+    </LinearLayout>
+
+
+
+  <include
+      layout="@layout/drug_table"
+      >
+
+  </include>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:src="@drawable/day"
+        android:layout_marginBottom="24dp"
+        >
+    </ImageView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@color/primary"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="Препарат">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@color/blue"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="Дозировка:">
+
+        </TextView>
+
+    </LinearLayout>
+
+
+
+    <include
+        layout="@layout/drug_table"
+        >
+
+    </include>
+
+
+
+
+
+
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:src="@drawable/evning"
+        android:layout_marginBottom="24dp"
+        >
+    </ImageView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/primary"
+            android:textColor="@color/white"
+            android:text="Препарат">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:background="@color/blue"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:text="Дозировка:">
+
+        </TextView>
+
+    </LinearLayout>
+
+
+
+    <include
+        layout="@layout/drug_table"
+        >
+
+    </include>
+
+
+
+
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:src="@drawable/night"
+        android:layout_marginBottom="24dp"
+        >
+    </ImageView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:background="@color/primary"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:text="Препарат">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/blue"
+            android:textColor="@color/white"
+            android:text="Дозировка:">
+
+        </TextView>
+
+    </LinearLayout>
+
+
+
+    <include
+        layout="@layout/drug_table"
+        >
+
+    </include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:backgroundTint="@color/grey_back"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/grey_back"
+        >
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="Общее состояние пациента:"
+        android:layout_marginBottom="16dp"
+        android:textSize="20sp"
+        android:textFontWeight="700"
+        >
+    </TextView>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="35"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="30sp">
+        </TextView>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:src="@drawable/chevron"
+            >
+
+        </ImageView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:backgroundTint="@color/grey_back"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/grey_back"
+        >
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="Прошлая неделя"
+        android:layout_marginBottom="16dp"
+        android:textSize="20sp"
+        android:textFontWeight="700"
+        >
+    </TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="27/100"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="30sp">
+    </TextView>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

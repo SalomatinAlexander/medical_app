@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    tools:context=".RoleFragment">
+
+  <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:gravity="center"
+      android:orientation="vertical"
+      >
+     <LinearLayout
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:gravity="center"
+         android:orientation="vertical"
+         >
+         <ImageView
+             android:layout_width="150dp"
+             android:layout_height="150dp"
+             android:layout_gravity="center"
+             android:src="@drawable/doctor_icon"
+             >
+         </ImageView>
+         <androidx.appcompat.widget.AppCompatButton
+             android:layout_width="150dp"
+             android:layout_marginTop="20dp"
+             android:layout_height="56dp"
+             android:id="@+id/doc_btn"
+             android:background="@drawable/primary_btn_style"
+             android:backgroundTint="@color/primary"
+             android:textColor="@color/white"
+             android:text="Я врач">
+
+         </androidx.appcompat.widget.AppCompatButton>
+
+     </LinearLayout>
+
+
+      <LinearLayout
+          android:layout_marginTop="60dp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:orientation="vertical"
+          >
+          <ImageView
+              android:layout_width="150dp"
+              android:layout_height="150dp"
+              android:layout_gravity="center"
+              android:src="@drawable/person_card_icon"
+              >
+          </ImageView>
+          <androidx.appcompat.widget.AppCompatButton
+              android:layout_width="150dp"
+              android:layout_marginTop="20dp"
+              android:layout_height="56dp"
+              android:id="@+id/patient_btn"
+              android:background="@drawable/primary_btn_style"
+              android:backgroundTint="@color/primary"
+              android:textColor="@color/white"
+              android:text="Я пациент">
+
+          </androidx.appcompat.widget.AppCompatButton>
+
+      </LinearLayout>
+  </LinearLayout>
+
+</FrameLayout>

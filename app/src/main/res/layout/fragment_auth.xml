@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp"
+    android:gravity="center"
+    tools:context=".ui.patient_pages.auth.AuthFragment">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="40dp"
+        android:hint="Почта"
+        android:inputType="textEmailAddress"
+        android:id="@+id/email_ed"
+        >
+</androidx.appcompat.widget.AppCompatEditText>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="20dp"
+        android:hint="Пароль"
+        android:inputType="textPassword"
+        android:id="@+id/password_ed"
+        >
+    </androidx.appcompat.widget.AppCompatEditText>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Укажите данные"
+        android:textColor="@color/red"
+        android:id="@+id/login_error_txt"
+        >
+
+    </TextView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/primary_btn_style"
+        android:textColor="@color/white"
+        android:id="@+id/login_btn"
+        android:text="Войти">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+
+</LinearLayout>
