@@ -38,6 +38,7 @@ class DocFragment : MvpAppCompatFragment(), CreateQuizView {
     fun provideQuizPresenter(): CreateQuizPresenter{
         return   mQuizSettingPresenter
     }
+
     lateinit var crateQuizBtn: AppCompatButton
     override fun onCreate(savedInstanceState: Bundle?) {
         MyApp.INSTANCE.mAppComponent.inject(this)

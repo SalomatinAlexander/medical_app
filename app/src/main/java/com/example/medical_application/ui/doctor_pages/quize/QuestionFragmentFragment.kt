@@ -135,12 +135,10 @@ class QuestionFragmentFragment : MvpAppCompatFragment(),
     }
 
     override fun addQuestion(question: QuestionModel) {
-        println("Add question")
 
     }
 
     override fun newQuestionAdded(question: QuestionModel) {
-        println("new 22")
 
     }
 

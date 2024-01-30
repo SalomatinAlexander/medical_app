@@ -104,7 +104,6 @@ class CreateQuizFragment :MvpAppCompatFragment(), CreateQuizView {
 
     @SuppressLint("NotifyDataSetChanged")
     override fun newQuestionAdded(question: QuestionModel) {
-        println("new")
         mQuestionRecycler.adapter?.notifyDataSetChanged()
     }
 
