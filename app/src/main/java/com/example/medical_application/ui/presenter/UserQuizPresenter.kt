@@ -30,11 +30,12 @@ class UserQuizPresenter : MvpPresenter<UserQuizView>(){
         CoroutineScope(Dispatchers.IO).launch {
             val list = getQuizList()
 
+           /*
             if (list != null) {
                 for (quiz: QuizData in list) {
                     val mQuestionList:ArrayList<QuestionModel> = arrayListOf()
-                    if(quiz.id == null) return@launch
-                    val questionsList =  getQuestionList(quiz.id)
+                    if(quiz.uuid == null) return@launch
+                    val questionsList =  getQuestionList(quiz.uuid)
                     if (questionsList != null) {
                         for(question: QuestionData in questionsList){
                             val mAnswerList:ArrayList<AnswerModel> = arrayListOf()
@@ -53,13 +54,14 @@ class UserQuizPresenter : MvpPresenter<UserQuizView>(){
                             )
                         }
 
-                        val model = QuizModel(quiz.quizName, quizQuestions = mQuestionList)
+                        val model = QuizModel(quiz., quizQuestions = mQuestionList)
                         if(!quizList.contains(model)) {
                             quizList.add(QuizModel(quiz.quizName, quizQuestions = mQuestionList))
                         }
                     }
                 }
             }
+            */
             withContext(Dispatchers.Main){
                 println("IN LIST USER QUIZ")
                 quizList.toSet().toList()
@@ -119,7 +121,7 @@ class UserQuizPresenter : MvpPresenter<UserQuizView>(){
     }
 
     suspend fun getQuizList() = coroutineScope {
-        MainActivity.INSTANCE.mQuizDatabase.quizDao()?.all
+
     }
 
     suspend fun getQuestionList(quizId:Int) = coroutineScope {

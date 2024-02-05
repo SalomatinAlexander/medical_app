@@ -10,9 +10,7 @@ import com.example.medical_application.R
 import com.example.medical_application.RoleFragment
 import com.example.medical_application.data.database.AnswerDatabase
 import com.example.medical_application.data.database.QuestionDatabase
-import com.example.medical_application.data.database.QuizDatabase
 import com.example.medical_application.data.database.UserAnswerDatabase
-import com.example.medical_application.data.database.UserDatabase
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.androidx.AppNavigator
 
@@ -22,10 +20,8 @@ class MainActivity : AppCompatActivity() {
     val router get() = cicerone.router
     private val navigatorHolder get() = cicerone.getNavigatorHolder()
     private val navigator = AppNavigator(this, R.id.fragment_view_id)
-    lateinit var mQuizDatabase: QuizDatabase
     lateinit var mQuestionDatabase: QuestionDatabase
     lateinit var mAnswerDatabase:AnswerDatabase
-    lateinit var mUserDatabase:UserDatabase
     lateinit var mUserAnswerDatabse:UserAnswerDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,17 +34,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initDatabase(){
-        mQuizDatabase = Room.databaseBuilder(this, QuizDatabase::class.java,
-            "quizdata")
-            .build()
         mQuestionDatabase = Room.databaseBuilder(this, QuestionDatabase::class.java,
             "questiondata")
             .build()
         mAnswerDatabase = Room.databaseBuilder(this, AnswerDatabase::class.java,
             "answerdata")
             .build()
-        mUserDatabase = Room.databaseBuilder(this, UserDatabase::class.java,
-            "userdatabase").build()
         mUserAnswerDatabse = Room.databaseBuilder(this, UserAnswerDatabase::class.java,
             "useranswerdatabase").build()
 

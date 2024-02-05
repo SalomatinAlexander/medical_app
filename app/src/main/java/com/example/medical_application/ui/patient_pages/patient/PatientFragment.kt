@@ -1,154 +1,166 @@
 package com.example.medical_application.ui.patient_pages.patient
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CalendarView
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.AppCompatButton
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.medical_application.MyApp
 import com.example.medical_application.R
-import com.example.medical_application.data.models.UserAnswerData
+import com.example.medical_application.core.Constants
+import com.example.medical_application.data.models.QuestionModel
+import com.example.medical_application.data.models.QuizData
+import com.example.medical_application.data.models.QuizModel
+import com.example.medical_application.data.models.UserData
+import com.example.medical_application.data.repositories.QuizRepository
 import com.example.medical_application.ui.MainActivity
-import com.example.medical_application.ui.doctor_pages.doc.QuizRecyclerAdapter
-import com.example.medical_application.ui.presenter.UserPresenter
-import com.example.medical_application.ui.presenter.UserQuizPresenter
-import com.example.medical_application.ui.view.UserQuizView
-import com.example.medical_application.ui.view.UserView
+import com.example.medical_application.ui.Screens
+import com.example.medical_application.ui.presenter.CreateQuizPresenter
+import com.example.medical_application.ui.view.CreateQuizView
+import com.google.type.DateTime
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import moxy.MvpAppCompatFragment
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.LocalDate
+import java.util.Date
 import javax.inject.Inject
-import javax.inject.Provider
 
 
-class PatientFragment :  MvpAppCompatFragment(), UserQuizView, UserView {
-    lateinit var mQuizRecycler:RecyclerView
-    lateinit var mPointsTxt: TextView
+class PatientFragment constructor(user: UserData,
+                                  isDoctor: Boolean) :  MvpAppCompatFragment(), CreateQuizView {
+    val currentUser: UserData = user
+    val userIsDoctor : Boolean = isDoctor
+    var userQuizList:ArrayList<QuizData> = arrayListOf();
+    val quizRepository: QuizRepository = QuizRepository()
+    lateinit var addAnswerBtn: AppCompatButton
+    lateinit var mDefaultTxt:TextView
 
-
-
-    @Inject
-    lateinit var mPresenter: UserQuizPresenter
-
-    @InjectPresenter
-    lateinit var userQuizPresenter: UserQuizPresenter
-
-    @ProvidePresenter
-    fun provideQuizPresenter(): UserQuizPresenter {
-        return   mPresenter
-    }
+    lateinit var mCalender: CalendarView
+    lateinit var mDateTxt: TextView
 
     @Inject
-    lateinit var mUserPresenter: UserPresenter
+    lateinit var mQuizSettingPresenter: CreateQuizPresenter
 
     @InjectPresenter
-    lateinit var userPresenter: UserPresenter
+    lateinit var quizPresenter: CreateQuizPresenter
 
     @ProvidePresenter
-    fun provideUserPresenter(): UserPresenter {
-        return  mUserPresenter
+    fun provideQuizPresenter(): CreateQuizPresenter {
+        return mQuizSettingPresenter
     }
 
+    override fun onPause() {
+        super.onPause()
+    }
 
-
-
-
-
-
+    override fun onResume() {
+        super.onResume()
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         MyApp.INSTANCE.mAppComponent.inject(this)
-        mPresenter.initQuizList()
-        getPoint()
 
         super.onCreate(savedInstanceState)
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mPresenter.initQuizList()
         val view = inflater.inflate(R.layout.fragment_patient, container, false)
         initView(view)
+        mQuizSettingPresenter
+            .getQuizByUserId(userId = currentUser.userId)
         return view
     }
 
-    fun initView(view: View){
+    @SuppressLint("SimpleDateFormat")
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun initView(view: View) {
         view.apply {
-            mQuizRecycler = findViewById(R.id.quiz_patient_recycler)
-            mPointsTxt = findViewById(R.id.pacient_points_txt)
+            mDefaultTxt = findViewById(R.id.defaultTextView)
+            mCalender = findViewById(R.id.calendarView)
+            mDateTxt = findViewById(R.id.DateTextView)
+            addAnswerBtn = findViewById(R.id.add_quiz_answer_btn)
         }
-        mQuizRecycler.layoutManager = LinearLayoutManager(this.context,
-            RecyclerView.VERTICAL,
-            false)
-        mQuizRecycler.adapter = QuizRecyclerAdapter(
-            true,
-            mPresenter.quizList.toSet().toList(),
-        )
-        getPoint()
+        getQuizData()
+        if(userIsDoctor){
+            addAnswerBtn.visibility = View.GONE
+        }else{
+            addAnswerBtn.setOnClickListener{
+                MainActivity.INSTANCE.router.navigateTo(Screens.AddNoteScreen(user = currentUser))
+            }
+        }
 
 
 
+        mCalender.setOnDateChangeListener { view, year, month, dayOfMonth ->
+            val date = "$dayOfMonth/${month + 1}/$year"
+           checkDate(date)
+            mDateTxt.text = date
+        }
 
 
     }
-   fun getPoint(){
-        val id = mUserPresenter.currentUser?.id
-        if(id != null){
-            CoroutineScope(Dispatchers.IO).launch{
-                val point = getAnswerPoint(id)
-                withContext(Dispatchers.Main){
-                    setUserPoint(point)
+
+    private fun checkDate(date:String){
+        for(quiz in userQuizList){
+            if(date == SimpleDateFormat("d/M/yyyy").format(quiz.createAt.toDate())){
+                var answers: String = ""
+                if(quiz.answers == null) return
+                for(a in quiz.answers){
+                    answers += "\n$a"
                 }
+
+                mDefaultTxt.text = answers
             }
         }
     }
 
-    suspend fun getAnswerPoint(userId: Int) = coroutineScope {
-        val answers = MainActivity.INSTANCE.mUserAnswerDatabse.userAnswerDao()?.getByUserId(userId)
-        println("IN GET ANSWER:${answers?.size}")
-        if(!answers.isNullOrEmpty()){
-            var points = 0
-
-            for(a: UserAnswerData in answers){
-                println("ANSWER POINT:${a.points}")
-
-                    points += a.points
-
-                println("POINTS:${points}")
+    private fun getQuizData(){
+        println("GET QUIZ DATA")
+        CoroutineScope(Dispatchers.IO).launch {
+            println("GET QUIZ DATA LAUNCH: ${currentUser.userId}")
+            val quizList =  quizRepository
+                .getQuizList(userId = currentUser.userId)
+            withContext(Dispatchers.Main){
+                println("GET QUIZ DATA: list${quizList?.size}")
+               initCalendarView(quizList)
             }
-            return@coroutineScope points
+
         }
-        return@coroutineScope 0
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    override fun initQuizList() {
-        mPresenter.quizList.toSet().toList()
-        mQuizRecycler.adapter?.notifyDataSetChanged()
+    override fun newQuestionAdded(question: QuestionModel) {}
+
+    override fun newQuizAdded(quiz: QuizModel) {}
+
+    override fun initQuizList() {}
+
+    override fun initCalendarView(quizList: ArrayList<QuizData>?) {
+        if(quizList != null){
+            userQuizList = quizList
+            val currentDate = Date(mCalender.date)
+            checkDate(SimpleDateFormat("d/M/yyyy").format(currentDate))
+            //Инициализируем данные
+        }else{
+            //Выводим текст об ошибке
+        }
+
     }
-
-    override fun answersSaved() {
-        getPoint()
-    }
-
-    override fun setUserPoint(points: Int) {
-        println("SET FRAGEMNT:${points}")
-        mPointsTxt.text = points.toString()
-    }
-
-    override fun userIsAuth() {}
-
 
 }

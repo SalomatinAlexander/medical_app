@@ -17,6 +17,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.medical_application.MyApp
 import com.example.medical_application.R
 import com.example.medical_application.data.models.QuestionModel
+import com.example.medical_application.data.models.QuizData
 import com.example.medical_application.data.models.QuizModel
 import com.example.medical_application.ui.MainActivity
 import com.example.medical_application.ui.Screens
@@ -104,9 +105,11 @@ class CreateQuizFragment :MvpAppCompatFragment(), CreateQuizView {
 
     @SuppressLint("NotifyDataSetChanged")
     override fun newQuestionAdded(question: QuestionModel) {
+        println("new")
         mQuestionRecycler.adapter?.notifyDataSetChanged()
     }
 
     override fun newQuizAdded(quiz: QuizModel) {}
     override fun initQuizList() {}
+    override fun initCalendarView(quizList: ArrayList<QuizData>?) {}
 }

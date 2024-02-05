@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.example.medical_application.core.Constants
 import com.example.medical_application.data.models.QuestionModel
+import com.example.medical_application.data.models.QuizData
 import com.example.medical_application.data.models.QuizModel
 import com.example.medical_application.ui.MainActivity
 import com.example.medical_application.ui.Screens
@@ -55,11 +57,11 @@ class RoleFragment : MvpAppCompatFragment(), CreateQuizView {
         patientBtn = view.findViewById(R.id.patient_btn)
 
         docBtn.setOnClickListener {
-            MainActivity.INSTANCE.router.navigateTo(Screens.DocScreen())
+            MainActivity.INSTANCE.router.navigateTo(Screens.AuthScreen(Constants.doctorRole))
         }
 
         patientBtn.setOnClickListener {
-            MainActivity.INSTANCE.router.navigateTo(Screens.AuthScreen())
+            MainActivity.INSTANCE.router.navigateTo(Screens.AuthScreen(Constants.patientRole))
         }
 
     }
@@ -69,4 +71,7 @@ class RoleFragment : MvpAppCompatFragment(), CreateQuizView {
     override fun newQuizAdded(quiz: QuizModel) {}
 
     override fun initQuizList() {}
+    override fun initCalendarView(quizList: ArrayList<QuizData>?) {
+
+    }
 }

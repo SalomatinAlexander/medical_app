@@ -14,18 +14,25 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.medical_application.MyApp
 import com.example.medical_application.R
 import com.example.medical_application.data.models.QuestionModel
+import com.example.medical_application.data.models.QuizData
 import com.example.medical_application.data.models.QuizModel
+import com.example.medical_application.data.repositories.UserRepository
 import com.example.medical_application.ui.MainActivity
 import com.example.medical_application.ui.Screens
 import com.example.medical_application.ui.presenter.CreateQuizPresenter
 import com.example.medical_application.ui.view.CreateQuizView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import moxy.MvpAppCompatFragment
 import javax.inject.Inject
 
 
+
 class DocFragment : MvpAppCompatFragment(), CreateQuizView {
-    lateinit var mQuizRecycler: RecyclerView
-    lateinit var mNoQuizTxt:TextView
+    lateinit var mPatientRecycler:RecyclerView
+    val userRepository = UserRepository()
 
 
     @Inject
@@ -39,7 +46,6 @@ class DocFragment : MvpAppCompatFragment(), CreateQuizView {
         return   mQuizSettingPresenter
     }
 
-    lateinit var crateQuizBtn: AppCompatButton
     override fun onCreate(savedInstanceState: Bundle?) {
         MyApp.INSTANCE.mAppComponent.inject(this)
         mQuizSettingPresenter.initQuizList()
@@ -59,51 +65,37 @@ class DocFragment : MvpAppCompatFragment(), CreateQuizView {
 
     private fun initView(view: View){
         view.apply {
-
-          crateQuizBtn = findViewById(R.id.create_quiz_btn)
-            mQuizRecycler = findViewById(R.id.quiz_recycler)
-            mNoQuizTxt = findViewById(R.id.no_quiz_txt)
+            mPatientRecycler = view.findViewById(R.id.patient_list)
         }
-        mQuizRecycler.layoutManager = LinearLayoutManager(this.context,
-            RecyclerView.VERTICAL,
-            false)
-        mQuizRecycler.adapter = QuizRecyclerAdapter(
-            true,
-            mQuizSettingPresenter.quizList.toSet().toList())
-        //mQuizSettingPresenter.initQuizList()
+        mPatientRecycler.layoutManager = LinearLayoutManager(context,
+            LinearLayoutManager.VERTICAL, false)
+        mPatientRecycler.adapter = PatientRecyclerAdapter(arrayListOf());
+        initUserList()
+    }
 
-        crateQuizBtn.setOnClickListener {
-            mQuizSettingPresenter.quize = QuizModel("", arrayListOf())
-            for (q: QuizModel in mQuizSettingPresenter.quizList){
-                if(q.quizName.isEmpty() || q.quizQuestions.isEmpty()){
-                    mQuizSettingPresenter.quizList.remove(q)
+    @SuppressLint("SuspiciousIndentation")
+    fun initUserList(){
+        CoroutineScope(Dispatchers.IO).launch {
+         val userList = userRepository.getUserList()
+            withContext(Dispatchers.Main){
+                if(userList != null){
+                    mPatientRecycler.adapter = PatientRecyclerAdapter(userList);
                 }
             }
-            mQuizSettingPresenter.quizList.toSet().toList()
-
-            MainActivity.INSTANCE.router.navigateTo(Screens.CreateQuizScreen())
         }
-
     }
 
     override fun newQuestionAdded(question: QuestionModel) {}
     override fun newQuizAdded(quiz: QuizModel) {
         mQuizSettingPresenter.quizList.toSet().toList()
-        //mQuizRecycler.adapter?.notifyDataSetChanged()
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun initQuizList() {
-        if(mQuizSettingPresenter.quizList.isNotEmpty()){
-            mNoQuizTxt.visibility = View.GONE
-        }else{
-            mNoQuizTxt.visibility = View.VISIBLE
-            return@initQuizList
-        }
         mQuizSettingPresenter.quizList.toSet().toList()
-        mQuizRecycler.adapter?.notifyDataSetChanged()
     }
+
+    override fun initCalendarView(quizList: ArrayList<QuizData>?) {}
 
 
 }

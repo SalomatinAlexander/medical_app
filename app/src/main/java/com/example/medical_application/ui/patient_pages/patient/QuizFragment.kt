@@ -15,6 +15,7 @@ import com.example.medical_application.R
 import com.example.medical_application.data.models.AnswerModel
 import com.example.medical_application.data.models.QuestionModel
 import com.example.medical_application.data.models.QuizModel
+import com.example.medical_application.data.models.UserData
 import com.example.medical_application.ui.MainActivity
 import com.example.medical_application.ui.Screens
 import com.example.medical_application.ui.presenter.CreateQuizPresenter
@@ -114,6 +115,7 @@ class QuizFragment(val quiz:QuizModel) : MvpAppCompatFragment(), UserQuizView, U
         mQuizRecycler.adapter = PatientQuizRecyclerAdapter(this, quiz.quizQuestions,)
     }
     fun saveAnswers(){
+        /*
         val id = mUserPresenter.currentUser?.id
         println("CURREN USER SAVE:${id}")
         if(id != null){
@@ -122,6 +124,7 @@ class QuizFragment(val quiz:QuizModel) : MvpAppCompatFragment(), UserQuizView, U
         }
 
         MainActivity.INSTANCE.router.backTo(Screens.PatientScreen())
+         */
     }
 
     override fun onPause() {
@@ -163,7 +166,8 @@ class QuizFragment(val quiz:QuizModel) : MvpAppCompatFragment(), UserQuizView, U
     override fun setUserPoint(points: Int) {
     }
 
-    override fun userIsAuth() {}
+
+
 
 
 }

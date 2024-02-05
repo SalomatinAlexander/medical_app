@@ -19,6 +19,7 @@ import com.example.medical_application.R
 import com.example.medical_application.data.models.AnswerModel
 import com.example.medical_application.ui.doctor_pages.quize.asnwer.AnswerRecyclerAdapter
 import com.example.medical_application.data.models.QuestionModel
+import com.example.medical_application.data.models.QuizData
 import com.example.medical_application.data.models.QuizModel
 import com.example.medical_application.ui.MainActivity
 import com.example.medical_application.ui.Screens
@@ -135,15 +136,18 @@ class QuestionFragmentFragment : MvpAppCompatFragment(),
     }
 
     override fun addQuestion(question: QuestionModel) {
+        println("Add question")
 
     }
 
     override fun newQuestionAdded(question: QuestionModel) {
+        println("new 22")
 
     }
 
     override fun newQuizAdded(quiz: QuizModel) {}
     override fun initQuizList() {}
+    override fun initCalendarView(quizList: ArrayList<QuizData>?) {}
 
 
 }

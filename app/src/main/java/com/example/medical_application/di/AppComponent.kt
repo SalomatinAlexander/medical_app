@@ -8,6 +8,7 @@ import com.example.medical_application.ui.doctor_pages.quize.CreateQuizFragment
 import com.example.medical_application.ui.doctor_pages.quize.QuestionFragmentFragment
 import com.example.medical_application.ui.doctor_pages.doc.DocFragment
 import com.example.medical_application.ui.patient_pages.auth.AuthFragment
+import com.example.medical_application.ui.patient_pages.patient.AddNoteFragment
 import com.example.medical_application.ui.patient_pages.patient.PatientFragment
 import com.example.medical_application.ui.patient_pages.patient.QuizFragment
 import dagger.Component
@@ -27,7 +28,7 @@ interface AppComponent {
     fun inject(fragment: AuthFragment)
     fun inject(fragment: RoleFragment)
 
-
+    fun inject(fragment: AddNoteFragment)
 
 
 

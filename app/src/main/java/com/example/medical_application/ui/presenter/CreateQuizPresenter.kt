@@ -10,6 +10,7 @@ import com.example.medical_application.data.models.QuestionData
 import com.example.medical_application.data.models.QuestionModel
 import com.example.medical_application.data.models.QuizData
 import com.example.medical_application.data.models.QuizModel
+import com.example.medical_application.data.repositories.QuizRepository
 import com.example.medical_application.ui.MainActivity
 import com.example.medical_application.ui.view.CreateQuizView
 import kotlinx.coroutines.CoroutineScope
@@ -22,6 +23,7 @@ import kotlin.random.Random
 
 @InjectViewState
 class CreateQuizPresenter: MvpPresenter<CreateQuizView>() {
+    val quizRepository = QuizRepository()
     var quize = QuizModel("", arrayListOf())
     var quizList = ArrayList<QuizModel>()
 
@@ -45,7 +47,7 @@ class CreateQuizPresenter: MvpPresenter<CreateQuizView>() {
                 }
                 saveQuestion(QuestionData(questionId, question.question, quizId))
             }
-            saveQuiz(QuizData(quizId, quiz.quizName))
+            //saveQuiz(QuizData(quizId, quiz.quizName))
 
             withContext(Dispatchers.Main){
                 if(!quizList.contains(quiz)) {
@@ -57,40 +59,19 @@ class CreateQuizPresenter: MvpPresenter<CreateQuizView>() {
 
     }
 
+    fun getQuizByUserId(userId:String){
+       CoroutineScope(Dispatchers.IO).launch {
+           val result = quizRepository.getQuizList(userId)
+           withContext(Dispatchers.Main){
+               viewState.initCalendarView(result)
+           }
+       }
+    }
+
     fun initQuizList(){
         CoroutineScope(Dispatchers.IO).launch {
             val list = getQuizList()
 
-            if (list != null) {
-                for (quiz: QuizData in list) {
-                    val mQuestionList:ArrayList<QuestionModel> = arrayListOf()
-                    if(quiz.id == null) return@launch
-                    val questionsList =  getQuestionList(quiz.id)
-                    if (questionsList != null) {
-                        for(question: QuestionData in questionsList){
-                            val mAnswerList:ArrayList<AnswerModel> = arrayListOf()
-                            val answerList = question.id?.let { getAnswerList(it) }
-                            if (answerList != null) {
-                                for(a:AnswerData in answerList){
-                                    mAnswerList.add(
-                                        AnswerModel(answer = a.answer,
-                                        points = a.points)
-                                    )
-                                }
-                            }
-                            mQuestionList.add(
-                                QuestionModel(id = question.id, question = question.question,
-                                answers = mAnswerList)
-                            )
-                        }
-
-                        val model = QuizModel(quiz.quizName, quizQuestions = mQuestionList)
-                        if(!quizList.contains(model)) {
-                            quizList.add(QuizModel(quiz.quizName, quizQuestions = mQuestionList))
-                        }
-                    }
-                }
-            }
             withContext(Dispatchers.Main){
                 quizList.toSet().toList()
                 viewState.initQuizList()
@@ -98,9 +79,7 @@ class CreateQuizPresenter: MvpPresenter<CreateQuizView>() {
         }
     }
 
-    suspend fun saveQuiz(quiz: QuizData) = coroutineScope {
-        MainActivity.INSTANCE.mQuizDatabase.quizDao()?.insert(quiz)
-    }
+    suspend fun saveQuiz(quiz: QuizData) = coroutineScope {}
 
     suspend fun saveQuestion(question:QuestionData)= coroutineScope {
         MainActivity.INSTANCE.mQuestionDatabase.questionDao()?.insert(question)
@@ -109,9 +88,7 @@ class CreateQuizPresenter: MvpPresenter<CreateQuizView>() {
         MainActivity.INSTANCE.mAnswerDatabase.answerDao()?.insert(answer)
     }
 
-    suspend fun getQuizList() = coroutineScope {
-        MainActivity.INSTANCE.mQuizDatabase.quizDao()?.all
-    }
+    suspend fun getQuizList() = coroutineScope {}
 
     suspend fun getQuestionList(quizId:Int) = coroutineScope {
         return@coroutineScope MainActivity.INSTANCE.mQuestionDatabase.questionDao()
