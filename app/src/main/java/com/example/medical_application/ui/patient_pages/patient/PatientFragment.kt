@@ -10,6 +10,8 @@ import android.widget.CalendarView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatButton
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.medical_application.MyApp
@@ -45,6 +47,7 @@ class PatientFragment constructor(user: UserData,
     val quizRepository: QuizRepository = QuizRepository()
     lateinit var addAnswerBtn: AppCompatButton
     lateinit var mDefaultTxt:TextView
+    lateinit var mAnswersRecyclerView:RecyclerView
 
     lateinit var mCalender: CalendarView
     lateinit var mDateTxt: TextView
@@ -96,7 +99,14 @@ class PatientFragment constructor(user: UserData,
             mCalender = findViewById(R.id.calendarView)
             mDateTxt = findViewById(R.id.DateTextView)
             addAnswerBtn = findViewById(R.id.add_quiz_answer_btn)
+            mAnswersRecyclerView = findViewById(R.id.user_answers_recycler_view_id)
         }
+
+        mAnswersRecyclerView.layoutManager =  LinearLayoutManager(this.context,
+            RecyclerView.VERTICAL,
+            false)
+        mAnswersRecyclerView.adapter = UserAnswersAdapter(arrayListOf())
+
         getQuizData()
         if(userIsDoctor){
             addAnswerBtn.visibility = View.GONE
@@ -108,27 +118,31 @@ class PatientFragment constructor(user: UserData,
 
 
 
-        mCalender.setOnDateChangeListener { view, year, month, dayOfMonth ->
+        mCalender.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val date = "$dayOfMonth/${month + 1}/$year"
-           checkDate(date)
+           getQuizData()
             mDateTxt.text = date
         }
 
 
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun checkDate(date:String){
+        if(userQuizList.isEmpty()){
+            mDefaultTxt.text = "Нет данных"
+            return;
+        }
+        mDefaultTxt.visibility = View.GONE
+        val updateList:ArrayList<QuizData> = arrayListOf()
         for(quiz in userQuizList){
             if(date == SimpleDateFormat("d/M/yyyy").format(quiz.createAt.toDate())){
-                var answers: String = ""
                 if(quiz.answers == null) return
-                for(a in quiz.answers){
-                    answers += "\n$a"
-                }
-
-                mDefaultTxt.text = answers
+                updateList.add(quiz)
             }
         }
+        mAnswersRecyclerView.adapter = UserAnswersAdapter(updateList)
+
     }
 
     private fun getQuizData(){

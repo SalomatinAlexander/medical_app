@@ -1,7 +1,6 @@
 package com.example.medical_application.ui.patient_pages.patient
 
 import android.os.Bundle
-import android.telephony.RadioAccessSpecifier
 import com.example.medical_application.MyApp
 import android.view.LayoutInflater
 import android.view.View
